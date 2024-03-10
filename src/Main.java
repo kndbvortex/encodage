@@ -1,4 +1,4 @@
-
+import java.text.Normalizer;
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
@@ -18,20 +18,27 @@ public class Main {
                 "Le terrain est plein de mauvaises herbes pour l’instant. Mais nous envisageons de tout couper, pour installer un poulailler et cultiver des fruits et légumes.\n" +
                 "\n" +
                 "Enfin, la maison a un grand garage, dans lequel nous pouvons garer nos deux voitures en rentrant du travail.";
-//        String s = "Vous faites un TP d’informatique en ce moment";
+        String s = "Vous faites un TP d’informatique en ce moment";
+//        b = "bébé";
+
+        b = Normalizer.normalize(b, Normalizer.Form.NFD);
+        b = b.replaceAll("[^\\p{ASCII}]", "");
+        System.out.println(b);
+
         CodeCesar codeCesar = new CodeCesar('T', b, true);
         String r = codeCesar.encoder();
 //        System.out.println(codeCesar);
 //        codeCesar = new CodeCesar('F', "Atzx kfnyjx zs YU i’nsktwrfynvzj js hj rtrjsy", false);
 //        System.out.println(codeCesar);
 //
-//        CodeVigenere codeVigenere = new CodeVigenere("TPFI", s, true );
-//        System.out.println(codeVigenere);
+        CodeVigenere codeVigenere = new CodeVigenere("TPFI", b, true );
+        System.out.println(codeVigenere);
 //        codeVigenere = new CodeVigenere("TPFI", "Odza ypnbxh zv ME i’qgutzfpyqjjj mg rj uhbjvm", false );
 //        System.out.println(codeVigenere);
 
         CassageCode cassageCode = new CassageCode("Odza");
 //        System.out.println(r);
-        System.out.println(cassageCode.carreDifference(r));
+//        System.out.println(cassageCode.carreDifference(r));
+        cassageCode.indiceCoincidence(codeVigenere.encoder());
     }
 }

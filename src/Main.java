@@ -31,15 +31,14 @@ public class Main {
 //        codeCesar = new CodeCesar('F', "Atzx kfnyjx zs YU i’nsktwrfynvzj js hj rtrjsy", false);
 //        System.out.println(codeCesar);
 //
-        CodeVigenere codeVigenere = new CodeVigenere("TPFI", b, true );
+        CodeVigenere codeVigenere = new CodeVigenere("TPFIG", b, true );
 //        System.out.println(codeVigenere);
 //        codeVigenere = new CodeVigenere("TPFI", "Odza ypnbxh zv ME i’qgutzfpyqjjj mg rj uhbjvm", false );
 //        System.out.println(codeVigenere);
 
         CassageCode cassageCode = new CassageCode("");
-//        System.out.println(r);
         System.out.println(cassageCode.carreDifference(r));
-//        cassageCode.indiceCoincidence(r);
+        cassageCode.indiceCoincidence(r);
         cassageCode.indiceCoincidence(codeVigenere.encoder());
     }
 }

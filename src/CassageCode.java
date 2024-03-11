@@ -39,7 +39,6 @@ public class CassageCode {
 
     public char carreDifference(String s){
         LinkedHashMap<Character, Double> occ = this.frequenceApparition(s);
-//        System.out.println(occ);
         LinkedHashMap<Character, Double> occ_2 = new LinkedHashMap<>();
         for(int i=0; i<26; i++){
             occ_2.put((char)('a'+i), this.t[i]);
@@ -52,7 +51,6 @@ public class CassageCode {
             if(occ.containsKey((char)('a'+i))){
                 v = occ.get((char)('a'+i));
             }
-//            newOcc.put((char)('a'+i), (v-this.t[i])*(v-this.t[i]));
             newOcc.put((char)('a'+i), v);
             if (v>d){
                 most_frequent=(char)('a'+i);
@@ -63,14 +61,8 @@ public class CassageCode {
         System.out.println(newOcc);
         System.out.println("Lettre probable de l'encodage: " + (char)('a' + most_frequent-'e') +
                 " car  <<"+ most_frequent + ">> est la lettre la plus fréquente");
-        Map.Entry<Character, Double> min = null;
-        for (Map.Entry<Character, Double> entry : newOcc.entrySet()) {
-            if (min == null || min.getValue() > entry.getValue()) {
-                min = entry;
-            }
-        }
 
-        return min.getKey();
+        return most_frequent;
     }
 
     private double calculIndice(String s){
@@ -84,16 +76,41 @@ public class CassageCode {
         return r;
     }
 
+    private  double _IC(int p, String s){
+        String[] substring = new String[p];
+        double[] l = new double[p];
+        double[] l_2 = new double[p];
+        Arrays.fill(substring, "");
+        int k=-1;
+        for(int i=0; i<s.length(); i++){
+            if(Character.isAlphabetic(s.charAt(i))){
+                k++;
+                substring[k%p] += s.charAt(i);
+
+            }
+        }
+        int i = 0;
+        for(int j=0; j<p; j++){
+            l_2[i] = this.calculIndice(substring[i]);
+        }
+        while(i < p){
+            l[i] = l_2[i]/p;
+            for(int j=0; j<i; j++){
+                l[i] += l_2[j]/p;
+            }
+            i++;
+        }
+        return  Arrays.stream(l).sum();
+    }
+
 
     private void _indiceCoincidence(int p, String s){
-        double icDepart = this.calculIndice(s);
+        double icDepart = _IC(1, s);
         if(icDepart > (0.8) *this.icFR){
             System.out.println("Texte codé avec clé de taille 1");
         }else{
             String[] substring = new String[p];
             double[] l = new double[p];
-            double[] l_2 = new double[p];
-            double[] absDiffFR = new double[p];
             Arrays.fill(substring, "");
             int k=-1;
             for(int i=0; i<s.length(); i++){
@@ -105,16 +122,12 @@ public class CassageCode {
             }
 
             int i = 2;
-            for(int j=0; j<p; j++){
-                l_2[i] = this.calculIndice(substring[i]);
-            }
+
+            l[1] = this._IC(1, s);
             while(i < p){
-                l[i] = l_2[i]/i;
-                for(int j=0; j<i; j++){
-                    l[i] += l_2[j]/i;
-                }
-                if((l[i] > (1.5)*this.icFR) || (l[i] > (1.5)*l[i-1])){
-                    System.out.println("Taille optimale "+ (i+1));
+                l[i] = this._IC(i, s);
+                if((l[i] > this.icFR) || (l[i] > (1.5)*l[i-1])){
+                    System.out.println("Taille optimale "+ (i));
                     break;
                 }
                 i++;

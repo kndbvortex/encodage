@@ -23,7 +23,7 @@ public class Main {
 
         b = Normalizer.normalize(b, Normalizer.Form.NFD);
         b = b.replaceAll("[^\\p{ASCII}]", "");
-        System.out.println(b);
+//        System.out.println(b);
 
         CodeCesar codeCesar = new CodeCesar('T', b, true);
         String r = codeCesar.encoder();
@@ -32,13 +32,14 @@ public class Main {
 //        System.out.println(codeCesar);
 //
         CodeVigenere codeVigenere = new CodeVigenere("TPFI", b, true );
-        System.out.println(codeVigenere);
+//        System.out.println(codeVigenere);
 //        codeVigenere = new CodeVigenere("TPFI", "Odza ypnbxh zv ME i’qgutzfpyqjjj mg rj uhbjvm", false );
 //        System.out.println(codeVigenere);
 
-        CassageCode cassageCode = new CassageCode("Odza");
+        CassageCode cassageCode = new CassageCode("");
 //        System.out.println(r);
-//        System.out.println(cassageCode.carreDifference(r));
+        System.out.println(cassageCode.carreDifference(r));
+        cassageCode.indiceCoincidence(r);
         cassageCode.indiceCoincidence(codeVigenere.encoder());
     }
 }

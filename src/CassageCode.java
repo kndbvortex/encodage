@@ -39,16 +39,30 @@ public class CassageCode {
 
     public char carreDifference(String s){
         LinkedHashMap<Character, Double> occ = this.frequenceApparition(s);
-        System.out.println(occ);
+//        System.out.println(occ);
+        LinkedHashMap<Character, Double> occ_2 = new LinkedHashMap<>();
+        for(int i=0; i<26; i++){
+            occ_2.put((char)('a'+i), this.t[i]);
+        }
         LinkedHashMap<Character, Double> newOcc = new LinkedHashMap<Character, Double>();
+        double d = -1*Double.MAX_VALUE;
+        char most_frequent = 'e';
         for(int i=0; i<26; i++){
             double v = 0;
             if(occ.containsKey((char)('a'+i))){
                 v = occ.get((char)('a'+i));
             }
-            newOcc.put((char)('a'+i), (v-this.t[i])*(v-this.t[i]));
+//            newOcc.put((char)('a'+i), (v-this.t[i])*(v-this.t[i]));
+            newOcc.put((char)('a'+i), v);
+            if (v>d){
+                most_frequent=(char)('a'+i);
+                d = v;
+            }
         }
+        System.out.println(occ_2);
         System.out.println(newOcc);
+        System.out.println("Lettre probable de l'encodage: " + (char)('a' + most_frequent-'e') +
+                " car  <<"+ most_frequent + ">> est la lettre la plus fréquente");
         Map.Entry<Character, Double> min = null;
         for (Map.Entry<Character, Double> entry : newOcc.entrySet()) {
             if (min == null || min.getValue() > entry.getValue()) {

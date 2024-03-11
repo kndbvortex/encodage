@@ -92,20 +92,29 @@ public class CassageCode {
         }else{
             String[] substring = new String[p];
             double[] l = new double[p];
+            double[] l_2 = new double[p];
             double[] absDiffFR = new double[p];
             Arrays.fill(substring, "");
+            int k=-1;
             for(int i=0; i<s.length(); i++){
-                substring[i%p] += s.charAt(i);
-            }
-            l[0] = this.calculIndice(substring[0]);
-            int i = 1;
-            while(i < p){
-                l[i] = this.calculIndice(substring[i])/i;
-                for(int j=0; j<i; j++){
-                    l[i] += l[j]/i;
+                if(Character.isAlphabetic(s.charAt(i))){
+                    k++;
+                    substring[k%p] += s.charAt(i);
+
                 }
-                if((l[i] > this.icFR) || (l[i] > (1.5)*l[i-1])){
-                    System.out.println("Taille optimale "+ i);
+            }
+
+            int i = 2;
+            for(int j=0; j<p; j++){
+                l_2[i] = this.calculIndice(substring[i]);
+            }
+            while(i < p){
+                l[i] = l_2[i]/i;
+                for(int j=0; j<i; j++){
+                    l[i] += l_2[j]/i;
+                }
+                if((l[i] > (1.5)*this.icFR) || (l[i] > (1.5)*l[i-1])){
+                    System.out.println("Taille optimale "+ (i+1));
                     break;
                 }
                 i++;

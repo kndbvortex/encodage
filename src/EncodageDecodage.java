@@ -2,11 +2,8 @@ public abstract class EncodageDecodage {
     String message;
     boolean encodage;
 
-    public static String lowerAlphabet = "abcdefghijklmnopqrstuvwxyz";
-    public static String upperAlphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-
     public EncodageDecodage(){
-        this.message= new String("");
+        this.message= "";
         this.encodage = true;
     }
 

@@ -39,7 +39,7 @@ public class Main {
         CassageCode cassageCode = new CassageCode("");
 //        System.out.println(r);
         System.out.println(cassageCode.carreDifference(r));
-        cassageCode.indiceCoincidence(r);
+//        cassageCode.indiceCoincidence(r);
         cassageCode.indiceCoincidence(codeVigenere.encoder());
     }
 }
